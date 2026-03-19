@@ -17,6 +17,7 @@
 
 ## Table of Contents
 
+- [Demo](#demo)
 - [Features](#features)
 - [Prerequisites](#prerequisites)
 - [Installation Guide](#installation-guide)
@@ -26,6 +27,16 @@
 - [Troubleshooting](#troubleshooting)
 - [Contributing](#contributing)
 - [License](#license)
+
+---
+
+## Demo
+
+> Screenshot demonstrating the project hardware layout.
+
+![Demo Screenshot](src/wiring%20diagram/circuit.png)
+
+_This project runs in a terminal environment and relies on webcam access to detect gestures._
 
 ---
 
