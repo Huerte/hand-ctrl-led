@@ -1,135 +1,191 @@
-# Hand LED Controller
+<div align="center">
+
+# hand-ctrl-led
+
+[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](#)
+[![Platform](https://img.shields.io/badge/platform-Python%20%7C%20Arduino-blueviolet.svg)](#)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](#)
+[![Last Commit](https://img.shields.io/github/last-commit/Huerte/hand-ctrl-led.svg)](#)
+
+**A hand gesture recognition system that controls 5 Arduino LEDs based on finger states.**
+
+<a href="https://github.com/Huerte/hand-ctrl-led/issues">Report Bug</a> · <a href="https://github.com/Huerte/hand-ctrl-led/issues">Request Feature</a>
+
+</div>
+
+---
+
+## Table of Contents
+
+- [Demo](#demo)
+- [Features](#features)
+- [Prerequisites](#prerequisites)
+- [Installation Guide](#installation-guide)
+- [Usage](#usage)
+- [Project Structure](#project-structure)
+- [Hardware Setup](#hardware-setup)
+- [Troubleshooting](#troubleshooting)
+- [Contributing](#contributing)
+- [License](#license)
+
+---
+
+## Demo
+
+> Demonstration of the webcam capturing hand coordinates and the corresponding LEDs lighting up.
+
+*(Upload a demo GIF or screenshot of the working project here)*
+
+---
 
 ## Features
 
-- Real-time hand tracking using cam
-- Detects each finger pos in real-time
-- Send commands to Arduino via serial
-- Each raised finger turns ON its assigned LED; lowering it turns it OFF
+hand-ctrl-led provides a real-time computer vision interface designed for hardware control via gestures.  
+Built to be responsive, easy to set up, and highly customizable for other hardware applications.
 
-## Project Structure
+- **Real-time Hand Tracking:** Uses MediaPipe and OpenCV to track hand gestures via a webcam.
+- **Finger State Detection:** Accurately detects whether each of the 5 fingers is open or closed based on joint coordinates.
+- **Serial Communication:** Efficiently sends binary state data to the Arduino microcontroller over a USB Serial connection.
+- **Hardware Control:** Maps the state of 5 fingers to 5 individual LEDs via Arduino GPIO pins.
 
+---
+
+## Prerequisites
+
+- **Python 3.x**
+- **Arduino IDE**
+- **Hardware:**
+  - 1x Arduino Board (e.g., Uno, Nano)
+  - 5x LEDs
+  - 5x Resistors (e.g., 220Ω or 330Ω)
+  - Jumper wires and breadboard
+  - Webcam
+
+---
+
+## Installation Guide
+
+Follow these steps to set up the software for the project.
+
+### Step 1: Get the Code
+
+```bash
+git clone https://github.com/Huerte/hand-ctrl-led.git
+cd hand-ctrl-led
 ```
-├── src/
-│   ├── main.py              # Python script (hand tracker)
-│   └── sketch/
-│       └── sketch.ino       # Arduino sketch
-│   └── wiring diagram/
-│       └── circuit.png      # Wiring diagram
-├── requirements.txt
-└── README.md
-```
 
-## Arduino side
+---
 
-### Hardware
+### Step 2: Install Python Dependencies
 
-- Arduino Uno R3
-- 5 LED and 220 ohm resistor
-- Jumper wires
-- Breadboard
-
-### Software
-Open `src/sketch/sketch.ino` using Arduino IDE and upload to your board
-
-> **Reminder:** Make sure to select the correct **COM port**:
->
-> - In **Arduino IDE**: `Tools > Port`
-> - In **Python code**: Edit the serial port in main.py `serial.port = 'COM3'` with your device port
->
-> You can find the correct COM port in Arduino IDE after connecting the board.
-
-### Wiring Diagram
-
-![Circuit Diagram](/src/wiring%20diagram/circuit.png)
-
-### Finger to LED Mapping
-
-| Finger        | LED Pin on Arduino |
-|---------------|--------------------|
-| Thumb         | 8                  |
-| Index Finger  | 9                  |
-| Middle Finger | 10                 |
-| Ring Finger   | 11                 |
-| Pinky Finger  | 12                 |
-
-## Python side
-
-### Dependencies
+It is recommended to use a virtual environment. Install the required packages via `requirements.txt`:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### Run the Script
-Make sure your Arduino is connected and update the COM port in `main.py`:
+---
 
-```python
-serial.port = "COM3"  # Replace with your actual COM port
+### Step 3: Flash the Arduino
+
+1. Open the `src/script/script.ino` file using the Arduino IDE.
+2. Connect your Arduino board to your computer via USB.
+3. Select your board and the corresponding COM port in the Arduino IDE (`Tools` > `Board` / `Port`).
+4. Click the **Upload** button to flash the code to the Arduino.
+
+---
+
+## Usage
+
+1. **Verify COM Port:** Ensure the Arduino is connected. Open `src/main.py` and modify the `serial.port` value on line 17 to match your Arduino's COM port (e.g., `'COM3'`, `/dev/ttyACM0`).
+2. **Setup Circuit:** Wire your LEDs to pins 7, 8, 9, 10, and 11 on the Arduino. (See [Hardware Setup](#hardware-setup))
+3. **Run the Script:** Execute the Python script.
+   ```bash
+   python src/main.py
+   ```
+4. **Action:** The webcam window should appear. Hold your hand up to the camera. Open or close your fingers to turn the corresponding LEDs on or off.
+5. **Exit:** Press the `ESC` key while focused on the webcam window to exit the program safely.
+
+---
+
+## Project Structure
+
+```text
+hand-ctrl-led/
+│
+├── src/
+│   ├── main.py                  # Core Python logic (OpenCV & MediaPipe)
+│   ├── script/
+│   │   └── script.ino           # Arduino code to receive serial data and control LEDs
+│   └── wiring diagram/
+│       └── circuit.png          # Visual breadboard diagram for the LEDs
+│
+├── LICENSE                      # MIT License file
+├── requirements.txt             # Python dependencies
+└── README.md                    # Project documentation
 ```
 
-Then run:
+---
 
-```bash
-python src/main.py
+## Hardware Setup
+
+The Arduino expects 5 LEDs connected to specific digital pins configured as outputs. 
+
+**Pin Mapping:**
+- **Pin 7:** LED 1 (Thumb)
+- **Pin 8:** LED 2 (Index Finger)
+- **Pin 9:** LED 3 (Middle Finger)
+- **Pin 10:** LED 4 (Ring Finger)
+- **Pin 11:** LED 5 (Pinky Finger)
+
+*Make sure to use a current-limiting resistor for each LED connected to the ground (GND).*
+Refer to the `src/wiring diagram/circuit.png` file for a visual representation.
+
+---
+
+## Troubleshooting
+
+### Common Issues
+
+**Serial Port Error**
+```text
+serial.serialutil.SerialException: could not open port 'COM3': PermissionError(13, 'Access is denied.', None, 5)
 ```
+> **Fix:** 
+> 1. Ensure the Arduino IDE Serial Monitor is closed, as it blocks the port.
+> 2. Verify that the COM port in `src/main.py` matches the one your Arduino is connected to.
 
-This will open your webcam and start gesture detection.
-
-## Serial Communication
-
-The Python script detects a single hand using MediaPipe and checks if each finger is raised.
-It sends a 5-bit binary command (followed by `*`) to the Arduino through the serial port.
-
-| Finger        | Bit Position | Detection Logic                                  |
-|---------------|--------------|--------------------------------------------------|
-| Thumb         | 0            | Tip (4) is left of joint (3)                     |
-| Index Finger  | 1            | Tip (8) is above joint (7)                       |
-| Middle Finger | 2            | Tip (12) is above joint (11)                     |
-| Ring Finger   | 3            | Tip (16) is above joint (15)                     |
-| Pinky Finger  | 4            | Tip (20) is above joint (19)                     |
-
-Example output:
-- `11111*` → All fingers up
-- `01000*` → Only index finger up
-- `00000*` → All fingers down
-
-These strings are sent over serial like:
-
-```python
-serial.write("10110*".encode('utf-8'))
+**Webcam Not Turning On**
+```text
+cv2.error: OpenCV(4.11.0) /io/opencv/modules/highgui/src/window.cpp:971: error: (-215:Assertion failed) size.width>0 && size.height>0 in function 'imshow'
 ```
+> **Fix:** 
+> Ensure your webcam is properly connected and recognized by your OS. If you have multiple cameras, change `cv2.VideoCapture(0)` in `src/main.py` to `cv2.VideoCapture(1)` or higher.
 
-On the Arduino side, you can read the string, parse each bit, and control LEDs or devices accordingly.
+> Still stuck? [Open an issue](https://github.com/Huerte/hand-ctrl-led/issues) with your error details and environment info.
 
-## How It Works
+---
 
-1. **Hand Detection (Python + MediaPipe)**  
-   The webcam captures live video. MediaPipe detects a hand and tracks 21 keypoints (landmarks) on it.
+## Contributing
 
-2. **Finger State Detection**  
-   For each finger, we check if it's raised using the position of key landmarks:
-   - Thumb: checks if tip is to the left of its joint.
-   - Fingers: checks if tip is above the lower joint.
+Contributions are welcome and appreciated!
 
-3. **Binary Encoding**  
-   Each finger’s state is encoded as `1` (up) or `0` (down), forming a 5-bit binary string like `10110`.
-
-4. **Serial Communication to Arduino**  
-   The binary string with a `*` suffix (e.g. `10110*`) is sent over the serial port to the Arduino.
-
-5. **Arduino Action**  
-   Arduino reads the string, decodes it, and turns LEDs ON/OFF depending on the combination of finger states.
-
-## Credits
-
-Uses:
-- [MediaPipe Hands](https://ai.google.dev/edge/mediapipe/solutions/vision/hand_landmarker)
-- [OpenCV](https://opencv.org/)
-- [Arduino Serial Communication](https://docs.arduino.cc/language-reference/en/functions/communication/serial/)
+1. Fork the Project
+2. Create a Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
 ---
 
 ## License
 
-Licensed under the MIT License. You can use, modify, and share this freely with attribution.
+Distributed under the **MIT** License. See [`LICENSE`](LICENSE) for details.
+
+---
+
+<div align="center">
+
+&copy; 2026 Huerte. All Rights Reserved.
+
+</div>
