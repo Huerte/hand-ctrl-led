@@ -141,7 +141,7 @@ The Arduino expects 5 LEDs connected to specific digital pins configured as outp
 - **Pin 11:** LED 5 (Pinky Finger)
 
 *Make sure to use a current-limiting resistor for each LED connected to the ground (GND).*
-Refer to the `src/wiring%20diagram/circuit.png` file for a visual representation.
+Refer to the `src/wiring diagram/circuit.png` file for a visual representation.
 
 ---
 
