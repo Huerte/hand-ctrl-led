@@ -1,15 +1,15 @@
 <div align="center">
 
-# hand-ctrl-led
+# FingerBridge
 
 [![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](#)
 [![Platform](https://img.shields.io/badge/platform-Python%20%7C%20Arduino-blueviolet.svg)](#)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](#)
-[![Last Commit](https://img.shields.io/github/last-commit/Huerte/hand-ctrl-led.svg)](#)
+[![Last Commit](https://img.shields.io/github/last-commit/Huerte/finger-led-bridge.svg)](#)
 
 **A hand gesture recognition system that controls 5 Arduino LEDs based on finger states.**
 
-<a href="https://github.com/Huerte/hand-ctrl-led/issues">Report Bug</a> · <a href="https://github.com/Huerte/hand-ctrl-led/issues">Request Feature</a>
+<a href="https://github.com/Huerte/finger-led-bridge/issues">Report Bug</a> · <a href="https://github.com/Huerte/finger-led-bridge/issues">Request Feature</a>
 
 </div>
 
@@ -42,7 +42,7 @@ _This project runs in a terminal environment and relies on webcam access to dete
 
 ## Features
 
-hand-ctrl-led provides a real-time computer vision interface designed for hardware control via gestures.  
+`finger-led-bridge` provides a real-time computer vision interface designed for hardware control via gestures.  
 Built to be responsive, easy to set up, and highly customizable for other hardware applications.
 
 - **Real-time Hand Tracking:** Uses MediaPipe and OpenCV to track hand gestures via a webcam.
@@ -72,8 +72,8 @@ Follow these steps to set up the software for the project.
 ### Step 1: Get the Code
 
 ```bash
-git clone https://github.com/Huerte/hand-ctrl-led.git
-cd hand-ctrl-led
+git clone https://github.com/Huerte/finger-led-bridge.git
+cd finger-led-bridge
 ```
 
 ---
@@ -113,7 +113,7 @@ pip install -r requirements.txt
 ## Project Structure
 
 ```text
-hand-ctrl-led/
+finger-led-bridge/
 │
 ├── src/
 │   ├── main.py                  # Core Python logic (OpenCV & MediaPipe)
@@ -141,7 +141,7 @@ The Arduino expects 5 LEDs connected to specific digital pins configured as outp
 - **Pin 11:** LED 5 (Pinky Finger)
 
 *Make sure to use a current-limiting resistor for each LED connected to the ground (GND).*
-Refer to the `src/wiring diagram/circuit.png` file for a visual representation.
+Refer to the `src/wiring%20diagram/circuit.png` file for a visual representation.
 
 ---
 
@@ -164,7 +164,7 @@ cv2.error: OpenCV(4.11.0) /io/opencv/modules/highgui/src/window.cpp:971: error: 
 > **Fix:** 
 > Ensure your webcam is properly connected and recognized by your OS. If you have multiple cameras, change `cv2.VideoCapture(0)` in `src/main.py` to `cv2.VideoCapture(1)` or higher.
 
-> Still stuck? [Open an issue](https://github.com/Huerte/hand-ctrl-led/issues) with your error details and environment info.
+> Still stuck? [Open an issue](https://github.com/Huerte/finger-led-bridge/issues) with your error details and environment info.
 
 ---
 
