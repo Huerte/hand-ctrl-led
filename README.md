@@ -17,7 +17,6 @@
 
 ## Table of Contents
 
-- [Demo](#demo)
 - [Features](#features)
 - [Prerequisites](#prerequisites)
 - [Installation Guide](#installation-guide)
@@ -27,14 +26,6 @@
 - [Troubleshooting](#troubleshooting)
 - [Contributing](#contributing)
 - [License](#license)
-
----
-
-## Demo
-
-> Demonstration of the webcam capturing hand coordinates and the corresponding LEDs lighting up.
-
-*(Upload a demo GIF or screenshot of the working project here)*
 
 ---
 
